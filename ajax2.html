@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Ajax 2 - Local JSON</title>
 </head>
+
+
 <body>
   <button id="button1">Get User</button>
   <button id="button2">Get Users</button>
@@ -27,13 +29,20 @@
         if(this.status == 200){
           var user = JSON.parse(this.responseText);
           
-          var output = '';
-
-          output += '<ul>' +
-            '<li>ID: '+user.id+'</li>' +
-            '<li>Name: '+user.name+'</li>' +
-            '<li>Email: '+user.email+'</li>' +
-            '</ul>';
+          //var output = '';
+          //
+          //output += '<ul>' +
+          //  '<li>ID: '+user.id+'</li>' +
+          //  '<li>Name: '+user.name+'</li>' +
+          //  '<li>Email: '+user.email+'</li>' +
+          //  '</ul>';
+          
+          var output = '<ul>';  
+          for (k in user){
+            //output += `${k}: ${user[k]} <br>`
+            output += `<li>${k}: ${user[k]} </li>`    // w/ bullets
+          }
+          output += '</ul>';
 
           document.getElementById('user').innerHTML = output;
         }
@@ -50,15 +59,18 @@
         if(this.status == 200){
           var users = JSON.parse(this.responseText);
           
-          var output = '';
+          
+          var output = '<ul>';
           
           for(var i in users){
-            output += '<ul>' +
-              '<li>ID: '+users[i].id+'</li>' +
-              '<li>Name: '+users[i].name+'</li>' +
-              '<li>Email: '+users[i].email+'</li>' +
-              '</ul>';
+              
+            for (var  k in users[i]){
+              
+              output += `<li>${k}: ${users[i][k]} </li>`    // w/ bullets
+            }
+            
           }
+          output += '</ul>';
 
           document.getElementById('users').innerHTML = output;
         }
