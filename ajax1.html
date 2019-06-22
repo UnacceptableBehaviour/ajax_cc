@@ -25,8 +25,8 @@
       
       console.log('xhr.open');
       
-      //file_loc = 'http://192.168.0.8:8000/static/nutrinfo_mini.txt';
-      file_loc = 'sample.txt';
+      file_loc = 'http://192.168.0.8:8000/static/nutrinfo_micro.txt';
+      //file_loc = 'sample.txt';
       
       // OPEN - type,  url/file,     async
       //xhr.open('GET', 'sample.txt', true);
@@ -34,50 +34,80 @@
       
       console.log('READYSTATE: ', xhr.readyState);
 
-      //
+        //
       //// OPTIONAL - used for loaders
       //xhr.onprogress = function(){
       //  console.log('READYSTATE: ', xhr.readyState);
       //}
-      //
-      xhr.onload = function(){
-      //  console.log('READYSTATE: ', xhr.readyState);
-        if(this.status == 200){
-          console.log(this.responseText);
-          //document.getElementById('text').innerHTML = this.responseText;
-        } else if (this.status = 404) {
-          console.log('status 404 - not found');
-          //document.getElementById('text').innerHTML = 'Not Found';
+      
+      newWay = true;
+      //newWay = false;
+      
+      if (newWay) {
+        xhr.onload = function(){
+          console.log('READYSTATE: ', xhr.readyState);
+          
+          if(this.status == 200){
+            console.log(this.responseText);
+            
+            html_version = ''
+            
+            console.log(typeof(this.responseText));
+            
+            text = this.responseText
+            console.log(text.length)
+            
+            for (var l=0; l < text.length; l++){
+              html_version += text[l];
+              console.log(text[l]);
+              if (text[l] === "\n"){
+                html_version += '<br>';
+                console.log('<br>');
+              }
+            }
+            
+            console.log(html_version);
+            
+            document.getElementById('text').innerHTML = html_version;
+          
+          } else if (this.status == 404) {
+            console.log('status 404 - not found');
+            //document.getElementById('text').innerHTML = 'Not Found';
+           }
+        }
+        
+        xhr.onerror = function(){
+          console.log('Request Error...');
         }
       }
-      //
-      //xhr.onerror = function(){
-      //  console.log('Request Error...');
-      //}
+      else { // old way
+        // readyState Values
+        // 0: request not initialized 
+        // 1: server connection established
+        // 2: request received 
+        // 3: processing request 
+        // 4: request finished and response is ready
+        xhr.onreadystatechange = function(){
+          console.log('READYSTATE: ', xhr.readyState);
+          if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+          }
+        }
+        // HTTP Statuses
+        // 200: "OK"
+        // 403: "Forbidden"
+        // 404: "Not Found"
+      
+      }
 
-      // xhr.onreadystatechange = function(){
-      //   console.log('READYSTATE: ', xhr.readyState);
-      //   if(this.readyState == 4 && this.status == 200){
-      //     //console.log(this.responseText);
-      //   }
-      // }
 
       // Sends request
       xhr.send();
       console.log('SENT: ', xhr.readyState);
     }
 
-    // readyState Values
-    // 0: request not initialized 
-    // 1: server connection established
-    // 2: request received 
-    // 3: processing request 
-    // 4: request finished and response is ready
 
-    // HTTP Statuses
-    // 200: "OK"
-    // 403: "Forbidden"
-    // 404: "Not Found"
+
   </script>
 </body>
 </html>
