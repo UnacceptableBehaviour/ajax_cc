@@ -9,6 +9,10 @@
 <body>
   <button id="button">Get Text File</button>
   <br><br>
+  <a href='https://github.com/UnacceptableBehaviour/assest_server'>Clone asset server and fire it up - it serve files for these examples</a>
+  <br><br>
+  RC on window > Inspect > Click console tab (see see console outputs too)
+  <br><br>
   <div id="text"></div>
 
   <script>
@@ -18,7 +22,7 @@
     function loadText(){
       console.log('loadText event handler');
 
-      // Create XHR Object
+      // Create XHR Object - Ajax
       var xhr = new XMLHttpRequest();
       
       console.log(xhr);
