@@ -22,10 +22,15 @@
     document.getElementById('button2').addEventListener('click', loadUsers);
 
     function loadUser(){
+      
       var xhr = new XMLHttpRequest();
+      
+      // OPEN - type,  url/file,     async
       xhr.open('GET', 'user.json', true);
+      // ERROR: Access to XMLHttpRequest at 'file:///Users/simon/a_syllabus/lang/html_css_js/ajax_cc/users.json' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.      
 
       xhr.onload = function(){
+        
         if(this.status == 200){
           var user = JSON.parse(this.responseText);
           
@@ -49,7 +54,8 @@
       }
 
       xhr.send();
-    }
+      
+    } // - - - - - - - - - - - - - - - end function loadUser()
 
     function loadUsers(){
       var xhr = new XMLHttpRequest();
